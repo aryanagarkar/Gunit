@@ -12,7 +12,7 @@ namespace Grids
 
         List<string> operations;
 
-        void Start()
+        void Awake()
         {
             operations = new List<string>();
             operations.Add("+");

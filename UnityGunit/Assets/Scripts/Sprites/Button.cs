@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using Utils;
 using Controllers;
+using NCalc;
 
 public class Button : MonoBehaviour
 {
@@ -67,48 +68,10 @@ public class Button : MonoBehaviour
         int part1Eval = 0;
         int part2Eval = 0;
 
-        part1Eval = evaluate(part1);
-        part2Eval = evaluate(part2);
+        part1Eval = Convert.ToInt32(new Expression(part1).Evaluate());
+        part2Eval = Convert.ToInt32(new Expression(part2).Evaluate());
 
         return part1Eval == part2Eval;
-    }
-
-    int evaluate(string part)
-    {
-        int currNumber = 0;
-        string currOperator = "";
-
-        for (int i = 0; i < part.Length; i++)
-        {
-            if (!Char.IsDigit(part[i]))
-            {
-                currOperator = part[i].ToString();
-            }
-            else if (Char.IsDigit(part[i]) && currOperator.Equals(""))
-            {
-                currNumber = Int32.Parse(part[i].ToString());
-            }
-            else if (Char.IsDigit(part[i]))
-            {
-                switch (currOperator)
-                {
-                    case "+":
-                        currNumber = currNumber + (int)Char.GetNumericValue(part[i]);
-                        break;
-                    case "-":
-                        currNumber = currNumber - (int)Char.GetNumericValue(part[i]);
-                        break;
-                    case "*":
-                        currNumber = currNumber * (int)Char.GetNumericValue(part[i]);
-                        break;
-                    case "/":
-                        currNumber = currNumber / (int)Char.GetNumericValue(part[i]);
-                        break;
-                }
-            }
-        }
-
-        return currNumber;
     }
 
     public void clearField()
