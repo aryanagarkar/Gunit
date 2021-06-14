@@ -10,8 +10,6 @@ namespace Controllers
 {
     public class GameManager : MonoBehaviour
     {
-        //private List<GameObject> greyedOutCells;
-
         [SerializeField]
         GameObject prefabButton;
 
@@ -30,7 +28,6 @@ namespace Controllers
 
         void Start()
         {
-            //greyedOutCells = new List<GameObject>();
             Tracker.Init();
         }
 
@@ -44,11 +41,6 @@ namespace Controllers
                 {
                     if (image.overrideSprite == ButtonSprites.buttonSpriteGray)
                     {
-                        /*greyedOutCells.Add(obj);
-                        if (!greyedOutCells.Contains(obj))
-                        {
-                            image.overrideSprite = null;
-                        } */
                         image.overrideSprite = null;
                     }
                     else if (image.overrideSprite == ButtonSprites.buttonSpriteBlue)

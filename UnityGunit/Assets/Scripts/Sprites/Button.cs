@@ -61,7 +61,7 @@ public class Button : MonoBehaviour
 
     bool validate(string equation)
     {
-        int indexOfEqualSign = findEqualSignIndex(equation);
+        int indexOfEqualSign = equation.IndexOf("=");
         string part1 = equation.Substring(0, indexOfEqualSign);
         string part2 = equation.Substring(indexOfEqualSign + 1);
         int part1Eval = 0;
@@ -71,18 +71,6 @@ public class Button : MonoBehaviour
         part2Eval = evaluate(part2);
 
         return part1Eval == part2Eval;
-    }
-
-    int findEqualSignIndex(string equation)
-    {
-        for(int i = 0; i < equation.Length; i++)
-        {
-            if (equation[i].Equals('='))
-            {
-                return i;
-            }
-        }
-        return -1;
     }
 
     int evaluate(string part)
@@ -105,16 +93,16 @@ public class Button : MonoBehaviour
                 switch (currOperator)
                 {
                     case "+":
-                        currNumber = currNumber + Int32.Parse(part[i].ToString());
+                        currNumber = currNumber + (int)Char.GetNumericValue(part[i]);
                         break;
                     case "-":
-                        currNumber = currNumber - Int32.Parse(part[i].ToString());
+                        currNumber = currNumber - (int)Char.GetNumericValue(part[i]);
                         break;
                     case "*":
-                        currNumber = currNumber * Int32.Parse(part[i].ToString());
+                        currNumber = currNumber * (int)Char.GetNumericValue(part[i]);
                         break;
                     case "/":
-                        currNumber = currNumber / Int32.Parse(part[i].ToString());
+                        currNumber = currNumber / (int)Char.GetNumericValue(part[i]);
                         break;
                 }
             }

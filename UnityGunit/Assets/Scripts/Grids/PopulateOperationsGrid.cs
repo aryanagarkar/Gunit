@@ -10,8 +10,16 @@ namespace Grids
         [SerializeField]
         GameObject PrefabGridElement;
 
+        List<string> operations;
+
         void Start()
         {
+            operations = new List<string>();
+            operations.Add("+");
+            operations.Add("-");
+            operations.Add("=");
+            operations.Add("*");
+            operations.Add("/");
         }
 
         void Update()
@@ -21,26 +29,7 @@ namespace Grids
 
         public void Populate(int difficulty)
         {
-            List<string> operations = new List<string>();
-            operations.Add("+");
-            operations.Add("-");
-            operations.Add("=");
-            operations.Add("*");
-            operations.Add("/");
-
-            int endIndex = 0;
-            switch (difficulty)
-            {
-                case 1:
-                    endIndex = 2;
-                    break;
-                case 2:
-                    endIndex = 3;
-                    break;
-                case 3:
-                    endIndex = 4;
-                    break;
-            }
+            int endIndex = difficulty + 1;
 
             for (int i = 0; i <= endIndex; i++)
             {
