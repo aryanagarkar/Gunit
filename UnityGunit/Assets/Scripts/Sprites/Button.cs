@@ -23,7 +23,7 @@ public class Button : MonoBehaviour
         String text = gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text;
         Image image = gameObject.GetComponent<Image>();
 
-        if (!text.Equals("Go") && image.sprite != ButtonSprites.buttonSpriteGray)
+        if (!text.Equals("Go") && !text.Equals("Back") && image.overrideSprite != ButtonSprites.buttonSpriteGray)
         {
             if (!text.Equals("=") && !text.Equals("+") && !text.Equals("-"))
             { 
@@ -31,7 +31,33 @@ public class Button : MonoBehaviour
             }
             field.text = field.text + text;
         }
-        else
+        else if (text.Equals("Back"))
+        {
+            String lastCharacterTyped = field.text[field.text.Length - 1].ToString();
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Button"))
+            {
+                int n;
+                if (int.TryParse(lastCharacterTyped, out n))
+                {
+                    if (lastCharacterTyped.Equals(obj.transform.GetChild(0).gameObject.GetComponent<Text>().text)
+                        && obj.GetComponent<Image>().overrideSprite == ButtonSprites.buttonSpriteGray)
+                    {
+                        obj.GetComponent<Image>().overrideSprite = null;
+                        field.text = field.text.Substring(0, field.text.Length - 1);
+                        break;
+                    }
+                }
+                else
+                {
+                    if (lastCharacterTyped.Equals(obj.transform.GetChild(0).gameObject.GetComponent<Text>().text))
+                    {
+                        field.text = field.text.Substring(0, field.text.Length - 1);
+                        break;
+                    }
+                }
+            }
+        }
+        else if(text.Equals("Go"))
         {
             bool correct = validate(field.text);
             if(correct)

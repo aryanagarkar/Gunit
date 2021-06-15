@@ -31,7 +31,33 @@ namespace Controllers
             Tracker.Init();
         }
 
-       public void nextRound()
+        public void draw(int difficulty, GameObject canvas, int min, int max)
+        {
+            GameObject field = Instantiate(prefabInputField, canvas.transform);
+            field.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -60);
+
+            GameObject NumPanel = canvas.transform.GetChild(0).gameObject;
+            NumPanel.GetComponent<PopulateNumberGrid>().Populate(difficulty, min, max);
+
+            GameObject OperationsPanel = canvas.transform.GetChild(1).gameObject;
+            OperationsPanel.GetComponent<PopulateOperationsGrid>().Populate(difficulty);
+
+            GameObject go = Instantiate(prefabButton, canvas.transform);
+            go.GetComponentInChildren<Text>().text = "Go";
+            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(180, 170);
+
+            GameObject back = Instantiate(prefabButton, canvas.transform);
+            back.GetComponentInChildren<Text>().text = "Back";
+            back.GetComponentInChildren<Text>().fontSize = 15;
+            back.GetComponent<RectTransform>().anchoredPosition = new Vector2(-180, 170);
+
+            GameObject done = Instantiate(prefabDoneButton, canvas.transform);
+            done.GetComponent<RectTransform>().anchoredPosition = new Vector2(-250, 30);
+            GameObject endGame = Instantiate(prefabEndGameButton, canvas.transform);
+            endGame.GetComponent<RectTransform>().anchoredPosition = new Vector2(-50, 30);
+        }
+
+        public void nextRound()
         {
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Button"))
             {
@@ -49,22 +75,6 @@ namespace Controllers
                     }
                 }
             }
-        }
-
-        public void draw(int difficulty, GameObject canvas, int min, int max)
-        {
-            Instantiate(prefabInputField, canvas.transform);
-            GameObject NumPanel = canvas.transform.GetChild(0).gameObject;
-            NumPanel.GetComponent<PopulateNumberGrid>().Populate(difficulty, min, max);
-
-            GameObject OperationsPanel = canvas.transform.GetChild(1).gameObject;
-            OperationsPanel.GetComponent<PopulateOperationsGrid>().Populate(difficulty);
-
-            GameObject b = Instantiate(prefabButton, canvas.transform);
-            b.GetComponentInChildren<Text>().text = "Go";
-
-            Instantiate(prefabDoneButton, canvas.transform);
-            Instantiate(prefabEndGameButton, canvas.transform);
         }
     }
 }

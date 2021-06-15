@@ -22,7 +22,7 @@ namespace Grids
 
         public void Populate(int difficulty, int min, int max)
         {
-            int numberToCreate = 13;
+            int numberToCreate = 20;
             for (int i = 0; i <= numberToCreate; i++)
             {
                 GameObject image = Instantiate(PrefabGridElement, gameObject.transform);
